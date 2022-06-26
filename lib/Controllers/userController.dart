@@ -87,4 +87,22 @@ class UserController extends GetxController {
         });
     return _deleted;
   }
+
+  Future<bool> deleteUserApi(String email) async {
+    bool _deleted = false;
+    await Get.defaultDialog(
+        title: "DELETE",
+        middleText: "Do you want delete this user",
+        textConfirm: "YES",
+        textCancel: "NO",
+        confirmTextColor: Colors.white,
+        onConfirm: () {
+          UserProvides().deleteUser(email).then((_) {
+            users.removeWhere((element) => element.email == email);
+            _deleted = true;
+          });
+          Get.back();
+        });
+    return _deleted;
+  }
 }

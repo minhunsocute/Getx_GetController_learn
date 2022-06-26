@@ -46,6 +46,34 @@ class UserProvides extends GetConnect {
     print('Call this function');
     var client = http.Client();
     var uri = Uri.parse(linkApiGetAll);
+    try {
+      var response = await client.get(uri);
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+//      print(jsonString);
+        List<User> result = [];
+        var temp = json.decode(jsonString);
+        for (var item in temp) {
+          result.add(
+            User(
+                id: "",
+                name: item["name"],
+                email: item["email"],
+                phone: "0935703991"),
+          );
+        }
+        return result;
+      }
+    } catch (err) {
+      print(err.toString());
+    }
+    return [];
+  }
+
+  Future<List<User>> deleteUser(String email) async {
+    print('Call delete function');
+    var client = http.Client();
+    var uri = Uri.parse(linkApiDeleteUser + email);
     var response = await client.get(uri);
     if (response.statusCode == 200) {
       var jsonString = response.body;
@@ -65,6 +93,4 @@ class UserProvides extends GetConnect {
     }
     return [];
   }
-
-  Future<List<User>> deleteUser
 }

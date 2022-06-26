@@ -59,7 +59,11 @@ class _HomePageState extends State<HomePage> {
                       title: Text("${usersC.users[i].name}"),
                       subtitle: Text("${usersC.users[i].email}"),
                       trailing: IconButton(
-                        onPressed: () => usersC.deleteUser(usersC.users[i].id),
+                        onPressed: () {
+                          print(usersC.users[i].email);
+                          usersC
+                              .deleteUserApi(usersC.users[i].email.toString());
+                        },
                         icon: Icon(
                           Icons.delete_forever,
                           color: Colors.red[900],
