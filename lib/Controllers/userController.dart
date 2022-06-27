@@ -24,14 +24,19 @@ class UserController extends GetxController {
       if (email.contains('@')) {
         String date = DateTime.now().toString();
         try {
-          UserProvides().postUser(name, email, phone).then((value) {
-            print(value.body);
-            users.add(User(
-              id: value.body["name"].toString(),
-              name: name,
-              email: email,
-              phone: phone,
-            ));
+          UserProvides().postUserApi(email, name, "0935703991").then((value) {
+            print(value);
+            int index = 0;
+            for (int i = 0; i < value.length; i++) {
+              if (value[i] == '.') {
+                index = i;
+                break;
+              }
+            }
+            String result = value.substring(0, index - 1);
+            (result == "Error")
+                ? Get.snackbar("Error", value)
+                : Get.snackbar("Success", "Create User is success");
           });
         } catch (err) {
           SnackBarError(err.toString());

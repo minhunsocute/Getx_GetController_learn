@@ -12,7 +12,7 @@ class UserProvides extends GetConnect {
       "https://tiktik-tute-default-rtdb.asia-southeast1.firebasedatabase.app/";
   final linkApiGetAll = "http://localhost:2011/user/getAll";
   final linkApiDeleteUser = "http://localhost:2011/user/deleteUser/";
-
+  final linkApiPostUser = "http://localhost:2011/user/postUser/";
   // get request
   Future<Response> getUser(int id) => get('http://youapi/users/$id');
   // post data
@@ -74,7 +74,7 @@ class UserProvides extends GetConnect {
     print('Call delete function');
     var client = http.Client();
     var uri = Uri.parse(linkApiDeleteUser + email);
-    var response = await client.get(uri);
+    var response = await client.delete(uri);
     if (response.statusCode == 200) {
       var jsonString = response.body;
 //      print(jsonString);
@@ -93,4 +93,18 @@ class UserProvides extends GetConnect {
     }
     return [];
   }
+
+  Future<String> postUserApi(String email, String name, String phone) async {
+    print("call post function");
+    var client = http.Client();
+    var uri = Uri.parse(linkApiPostUser + email + "/dsds01111/" + name + "/20");
+    var response = await client.post(uri);
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return jsonString;
+    }
+    return "";
+  }
 }
+
+//db.user.find().pretty()
