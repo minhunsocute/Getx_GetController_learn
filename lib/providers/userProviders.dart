@@ -12,7 +12,7 @@ class UserProvides extends GetConnect {
       "https://tiktik-tute-default-rtdb.asia-southeast1.firebasedatabase.app/";
   final linkApiGetAll = "http://localhost:2011/user/getAll";
   final linkApiDeleteUser = "http://localhost:2011/user/deleteUser/";
-  final linkApiPostUser = "http://localhost:2011/user/postUser/";
+  final linkApiPostUser = "http://localhost:2011/user/signUp/";
   // get request
   Future<Response> getUser(int id) => get('http://youapi/users/$id');
   // post data
@@ -52,15 +52,17 @@ class UserProvides extends GetConnect {
         var jsonString = response.body;
 //      print(jsonString);
         List<User> result = [];
-        var temp = json.decode(jsonString);
-        for (var item in temp) {
-          result.add(
-            User(
-                id: "",
-                name: item["name"],
-                email: item["email"],
-                phone: "0935703991"),
-          );
+        if (jsonString != "") {
+          var temp = json.decode(jsonString);
+          for (var item in temp) {
+            result.add(
+              User(
+                  id: item["id"],
+                  name: item["name"],
+                  email: item["email"],
+                  phone: "0935703991"),
+            );
+          }
         }
         return result;
       }

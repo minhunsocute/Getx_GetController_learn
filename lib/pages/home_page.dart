@@ -69,10 +69,13 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.red[900],
                         ),
                       ),
-                      onTap: () => Get.toNamed(
-                        RouteName.profile,
-                        arguments: usersC.users[i].id,
-                      ),
+                      onTap: () {
+                        print(usersC.users[i].email! +
+                            " - " +
+                            usersC.users[i].id);
+                        Get.toNamed(RouteName.profile,
+                            arguments: usersC.users[i].id);
+                      },
                     ),
                   ),
           ),

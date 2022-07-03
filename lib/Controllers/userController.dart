@@ -25,18 +25,8 @@ class UserController extends GetxController {
         String date = DateTime.now().toString();
         try {
           UserProvides().postUserApi(email, name, "0935703991").then((value) {
-            print(value);
-            int index = 0;
-            for (int i = 0; i < value.length; i++) {
-              if (value[i] == '.') {
-                index = i;
-                break;
-              }
-            }
-            String result = value.substring(0, index - 1);
-            (result == "Error")
-                ? Get.snackbar("Error", value)
-                : Get.snackbar("Success", "Create User is success");
+            users.add(User(id: '20', email: email, name: name, phone: phone));
+            Get.snackbar("Post User", value.toString());
           });
         } catch (err) {
           SnackBarError(err.toString());
