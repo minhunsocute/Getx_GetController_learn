@@ -47,13 +47,15 @@ class UserController extends GetxController {
   void edit(String id, String newName, String newEmail, String newPhone) {
     if (newName != '' && newEmail != '' && newPhone != '') {
       if (newEmail.contains('@')) {
-        UserProvides().editData(id, newName, newEmail, newPhone).then((_) {
-          print(_.body);
-          users[users.indexWhere((element) => element.id == id)].name = newName;
-          users[users.indexWhere((element) => element.id == id)].email =
-              newEmail;
-          users[users.indexWhere((element) => element.id == id)].phone =
-              newPhone;
+        UserProvides()
+            .editDataWithApi(newEmail, newName, "22222222", "40", id)
+            .then((_) {
+          users[users.indexWhere((element) => element.email == newEmail)].name =
+              newName;
+          users[users.indexWhere((element) => element.email == newEmail)]
+              .email = newEmail;
+          users[users.indexWhere((element) => element.email == newEmail)]
+              .phone = newPhone;
         });
         Get.back();
       } else {

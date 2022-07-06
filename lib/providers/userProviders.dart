@@ -13,6 +13,7 @@ class UserProvides extends GetConnect {
   final linkApiGetAll = "http://localhost:2011/user/getAll";
   final linkApiDeleteUser = "http://localhost:2011/user/deleteUser/";
   final linkApiPostUser = "http://localhost:2011/user/signUp/";
+  final linkApiEditUser = "http://localhost:2011/user/editUser/";
   // get request
   Future<Response> getUser(int id) => get('http://youapi/users/$id');
   // post data
@@ -40,6 +41,33 @@ class UserProvides extends GetConnect {
     });
 
     return patch(url + "users/$id.json", body);
+  }
+
+  Future<bool> editDataWithApi(
+      String email, String name, String password, String age, String id) async {
+    print('Edit user function is called');
+    var client = http.Client();
+    var uri = Uri.parse(linkApiEditUser +
+        email +
+        "/" +
+        password +
+        "/" +
+        name +
+        "/" +
+        age +
+        "/" +
+        id);
+    try {
+      var response = await client.patch(uri);
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        print(jsonString);
+        return true;
+      }
+    } catch (err) {
+      print(err.toString());
+    }
+    return false;
   }
 
   Future<List<User>> getAllUser() async {
